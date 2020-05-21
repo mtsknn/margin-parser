@@ -7,6 +7,12 @@ const input = String.raw`
   [annotation with a [nested] annotation]
   [:value]
 
+  Items:
+    - Item Y
+        [I belong to Item Y]
+    - [I *don't* belong to Item Z]
+        Item Z
+
   ** Shopping **
     [x] Groceries
     [x] Milk

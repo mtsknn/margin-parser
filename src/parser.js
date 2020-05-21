@@ -102,15 +102,19 @@ function hasChildren(line) {
 }
 
 function parseAnnotation(text) {
-  const match = text.match(/[^\\]?:/)
+  const escapedColons = /\\:/g
+  const match = text.match(/^:|[^\\]:/)
 
-  if (match === null) return { type: text }
+  if (match === null)
+    return {
+      type: text.replace(escapedColons, ':'),
+    }
 
   const i = match.index + (match[0] === ':' ? 0 : 1)
 
   return {
-    type: text.substring(0, i),
-    value: text.substring(i + 1),
+    type: text.substring(0, i).replace(escapedColons, ':'),
+    value: text.substring(i + 1).replace(escapedColons, ':'),
   }
 }
 

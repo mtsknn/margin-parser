@@ -3,6 +3,12 @@ module.exports = {
     browser: true,
   },
   extends: ['airbnb-base', 'prettier'],
+  overrides: [
+    {
+      files: ['*.test.js'],
+      env: { jest: true }
+    }
+  ],
   parser: 'babel-eslint',
   plugins: ['prettier', 'simple-import-sort'],
   rules: {

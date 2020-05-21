@@ -1,3 +1,5 @@
+import parseMargin from './parser.js'
+
 const input = String.raw`
   [foo]
   [ foo ]
@@ -23,7 +25,7 @@ const input = String.raw`
         Server
           [ ] Renew hosting    [date : 2020/01/07]
           [ ] Upgrade to PHP 7 [date : '2020/02/14']
-`;
+`
 
 const result = parseMargin(input)
 document.querySelector('#root').textContent = JSON.stringify(result, null, 2)

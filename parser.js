@@ -4,10 +4,10 @@ ornaments = new RegExp(`^${ornaments}|${ornaments}$`, 'g')
 // TODO: Get rid of this global variable?
 let lines = []
 
-function parseMargin(input) {
+export default function parseMargin(input) {
   lines = input
     .split('\n')
-    .filter(line => line.replace(ornaments, '').length > 0)
+    .filter((line) => line.replace(ornaments, '').length > 0)
   const root = {
     annotations: [],
     children: [],
@@ -56,19 +56,19 @@ function parseLine(line) {
   let nestLevel = 0
   let annotation = ''
 
-  for (let i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i += 1) {
     const prevChar = text[i - 1]
     const char = text[i]
     const nextChar = text[i + 1]
 
     if (char === '\\' && nextChar === 'n') {
       value += '\n'
-      i++
+      i += 1
     } else if (char === '\\' && (nextChar === '[' || nextChar === ']')) {
       // continue
     } else if (char === '[' && prevChar !== '\\') {
       if (inAnnotation) {
-        nestLevel++
+        nestLevel += 1
         annotation += char
       } else {
         inAnnotation = true
@@ -76,7 +76,7 @@ function parseLine(line) {
       }
     } else if (char === ']' && prevChar !== '\\' && inAnnotation) {
       if (nestLevel > 0) {
-        nestLevel--
+        nestLevel -= 1
         annotation += char
       } else {
         inAnnotation = false
@@ -92,7 +92,7 @@ function parseLine(line) {
 
   // The annotation was never terminated, so it's part of the value (including
   // the starting bracket)
-  if (inAnnotation) value += '[' + annotation
+  if (inAnnotation) value += `[${annotation}`
 
   return [value.trim(), annotations]
 }

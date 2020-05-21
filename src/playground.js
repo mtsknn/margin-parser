@@ -28,4 +28,4 @@ const input = String.raw`
 `
 
 const result = parseMargin(input)
-document.querySelector('#root').textContent = JSON.stringify(result, null, 2)
+document.querySelector('#output').textContent = JSON.stringify(result, null, 2)
